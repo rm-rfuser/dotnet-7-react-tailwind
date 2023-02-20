@@ -22,20 +22,18 @@ public class DataContext
     {
         // create database tables if they don't exist
         using var connection = CreateConnection();
-        await _initUsers();
+        await _initArticles();
 
-        async Task _initUsers()
+        async Task _initArticles()
         {
             var sql = """
                 CREATE TABLE IF NOT EXISTS 
-                Users (
+                Article (
                     Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     Title TEXT,
-                    FirstName TEXT,
-                    LastName TEXT,
-                    Email TEXT,
-                    Role INTEGER,
-                    PasswordHash TEXT
+                    Description TEXT,
+                    ImageUrl TEXT,
+                    [Type] INTEGER
                 );
             """;
             await connection.ExecuteAsync(sql);

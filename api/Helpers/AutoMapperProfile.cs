@@ -2,17 +2,17 @@ namespace WebApi.Helpers;
 
 using AutoMapper;
 using WebApi.Entities;
-using WebApi.Models.Users;
+using WebApi.Models.Article;
 
 public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
-        // CreateRequest -> User
-        CreateMap<CreateRequest, User>();
+        // CreateRequest -> Article
+        CreateMap<CreateRequest, Article>();
 
-        // UpdateRequest -> User
-        CreateMap<UpdateRequest, User>()
+        // UpdateRequest -> Article
+        CreateMap<UpdateRequest, Article>()
             .ForAllMembers(x => x.Condition(
                 (src, dest, prop) =>
                 {
@@ -21,7 +21,7 @@ public class AutoMapperProfile : Profile
                     if (prop.GetType() == typeof(string) && string.IsNullOrEmpty((string)prop)) return false;
 
                     // ignore null role
-                    if (x.DestinationMember.Name == "Role" && src.Role == null) return false;
+                    if (x.DestinationMember.Name == "Type" && src.Type == null) return false;
 
                     return true;
                 }

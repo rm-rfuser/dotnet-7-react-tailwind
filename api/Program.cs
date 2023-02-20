@@ -22,9 +22,11 @@ var builder = WebApplication.CreateBuilder(args);
     });
     services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+    services.AddSwaggerGen();
+
     // configure DI for application services
-    services.AddScoped<IUserRepository, UserRepository>();
-    services.AddScoped<IUserService, UserService>();
+    services.AddScoped<IArticleRepository, ArticleRepository>();
+    services.AddScoped<IArticleService, ArticleService>();
 }
 
 var app = builder.Build();
@@ -48,6 +50,9 @@ var app = builder.Build();
     app.UseMiddleware<ErrorHandlerMiddleware>();
 
     app.MapControllers();
+
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.Run("http://localhost:4000");
